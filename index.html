@@ -70,9 +70,10 @@
   .phone-device {
     background: #111;
     border-radius: 54px;
-    padding: 12px;
+    padding: 10px;
     box-shadow: 0 30px 70px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06);
     position: relative; z-index: 2;
+    overflow: hidden;
   }
   .phone-device.back {
     z-index: 1;
@@ -82,7 +83,7 @@
   .phone-device.front {
     transform: rotate(-4deg) translate(-10px, 0px);
   }
-  .phone-screen { border-radius: 43px; overflow: hidden; width: 255px; height: 540px; }
+  .phone-screen { border-radius: 46px; overflow: hidden; width: 255px; height: 540px; }
   .a-green { background: var(--app-bg); }
 
   /* App Header */
@@ -207,6 +208,36 @@
   .footer-links a:hover { color: var(--gold-light); }
   .footer-bottom { max-width: 1100px; margin: 24px auto 0; display: flex; justify-content: space-between; font-size: 11px; flex-wrap: wrap; gap: 8px; }
 
+
+  /* Language switcher */
+  .lang-switch {
+    display: flex; align-items: center; gap: 0;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 3px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .lang-btn {
+    padding: 4px 12px; border-radius: 16px;
+    font-size: 12px; font-weight: 500;
+    cursor: pointer; border: none;
+    background: transparent; color: rgba(255,255,255,0.55);
+    transition: all 0.2s;
+  }
+  .lang-btn.active {
+    background: var(--gold); color: var(--green-deep);
+    font-weight: 600;
+  }
+  /* Hide/show by language */
+  .id-text { display: block; }
+  .en-text { display: none; }
+  body.en .id-text { display: none; }
+  body.en .en-text { display: block; }
+  /* For inline elements */
+  span.id-text { display: inline; }
+  span.en-text { display: none; }
+  body.en span.id-text { display: none; }
+  body.en span.en-text { display: inline; }
+
   @media (max-width: 768px) {
     .hero-inner { grid-template-columns: 1fr; text-align: center; }
     .phones-wrap { order: -1; }
@@ -230,24 +261,33 @@
     <li><a href="#features">Features</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#privacy">Privacy</a></li>
-    <li><a href="mailto:guntarasaketi@gmail.com">Contact</a></li>
+    <li><a href="mailto:hello@maybeworks.studio">Contact</a></li>
   </ul>
-  <a href="#" class="nav-cta">Download Free</a>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="lang-switch">
+      <button class="lang-btn active" id="btn-id" onclick="setLang('id')">ID</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="#" class="nav-cta">
+      <span class="id-text">Unduh Gratis</span>
+      <span class="en-text">Download Free</span>
+    </a>
+  </div>
 </nav>
 
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="hero-eyebrow">Available on iOS · Free</div>
+      <div class="hero-eyebrow"><span class="id-text">Tersedia di iOS · Gratis</span><span class="en-text">Available on iOS · Free</span></div>
       <h1>Faraidh:<br><span>Kalkulator Waris</span></h1>
       <p class="hero-subtitle">حساب الميراث الإسلامي</p>
-      <p>Hitung pembagian waris Islam (Faraidh) secara akurat sesuai syariah. Untuk keluarga Muslim Indonesia dan seluruh dunia.</p>
+      <p><span class="id-text">Hitung pembagian waris Islam (Faraidh) secara akurat sesuai syariah. Untuk keluarga Muslim Indonesia dan seluruh dunia.</span><span class="en-text">Calculate Islamic inheritance (Faraidh) accurately based on Shariah law. For Muslim families in Indonesia and worldwide.</span></p>
       <div class="hero-buttons">
         <a href="#" class="btn-appstore">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          Download on App Store
+          <span class="id-text">Unduh di App Store</span><span class="en-text">Download on App Store</span>
         </a>
-        <a href="#features" class="btn-learn">Learn more →</a>
+        <a href="#features" class="btn-learn"><span class="id-text">Pelajari lebih →</span><span class="en-text">Learn more →</span></a>
       </div>
     </div>
 
@@ -381,16 +421,16 @@
 <!-- FEATURES -->
 <section class="features" id="features">
   <div style="max-width:1100px;margin:0 auto;">
-    <div class="section-label">Fitur Utama</div>
-    <h2 class="section-title">Semua yang kamu butuhkan<br>untuk hitung waris</h2>
-    <p class="section-sub">Dirancang untuk keluarga Muslim Indonesia dan global. Akurat, transparan, mudah dipahami.</p>
+    <div class="section-label"><span class="id-text">Fitur Utama</span><span class="en-text">Key Features</span></div>
+    <h2 class="section-title"><span class="id-text">Semua yang kamu butuhkan<br>untuk hitung waris</span><span class="en-text">Everything you need<br>to calculate inheritance</span></h2>
+    <p class="section-sub"><span class="id-text">Dirancang untuk keluarga Muslim Indonesia dan global. Akurat, transparan, mudah dipahami.</span><span class="en-text">Designed for Muslim families in Indonesia and worldwide. Accurate, transparent, and easy to understand.</span></p>
     <div class="features-grid">
-      <div class="feature-card"><div class="feature-icon">⚖️</div><h3>Kalkulasi Faraidh Lengkap</h3><p>17 jenis ahli waris, Awl, Raad, dan Mahjub — dihitung otomatis sesuai kaidah fiqih.</p></div>
-      <div class="feature-card"><div class="feature-icon">📊</div><h3>Pie Chart Interaktif</h3><p>Proporsi pembagian divisualisasikan dalam pie chart dengan label callout langsung di tiap irisan.</p></div>
-      <div class="feature-card"><div class="feature-icon">📄</div><h3>Ekspor Dokumen PDF</h3><p>Generate dokumen PDF profesional lengkap dengan harta, biaya jenazah, dan pembagian.</p><span class="feature-tag">Premium</span></div>
-      <div class="feature-card"><div class="feature-icon">🌍</div><h3>5 Mata Uang</h3><p>IDR, USD, MYR, SGD, dan AUD. Format otomatis sesuai standar tiap negara.</p></div>
-      <div class="feature-card"><div class="feature-icon">🕌</div><h3>Mazhab Syafi'i</h3><p>Kaidah Mazhab Syafi'i — dominan di Indonesia, Malaysia, dan Asia Tenggara.</p></div>
-      <div class="feature-card"><div class="feature-icon">🔒</div><h3>Privasi Terjamin</h3><p>Semua perhitungan lokal di perangkat kamu. Tidak ada data yang dikirim ke server.</p></div>
+      <div class="feature-card"><div class="feature-icon">⚖️</div><h3><span class="id-text">Kalkulasi Faraidh Lengkap</span><span class="en-text">Complete Faraidh Calculation</span></h3><p><span class="id-text">17 jenis ahli waris, Awl, Raad, dan Mahjub — dihitung otomatis sesuai kaidah fiqih.</span><span class="en-text">17 heir types, Awl, Raad, and Mahjub — all calculated automatically per Islamic law.</span></p></div>
+      <div class="feature-card"><div class="feature-icon">📊</div><h3><span class="id-text">Pie Chart Interaktif</span><span class="en-text">Interactive Pie Chart</span></h3><p><span class="id-text">Proporsi pembagian divisualisasikan dalam pie chart dengan label callout langsung di tiap irisan.</span><span class="en-text">Distribution proportions visualized in a pie chart with callout labels on each slice.</span></p></div>
+      <div class="feature-card"><div class="feature-icon">📄</div><h3><span class="id-text">Ekspor Dokumen PDF</span><span class="en-text">Export PDF Document</span></h3><p><span class="id-text">Generate dokumen PDF profesional lengkap dengan harta, biaya jenazah, dan pembagian.</span><span class="en-text">Generate a professional PDF document with estate summary, funeral costs, and distribution.</span></p><span class="feature-tag">Premium</span></div>
+      <div class="feature-card"><div class="feature-icon">🌍</div><h3><span class="id-text">5 Mata Uang</span><span class="en-text">5 Currencies</span></h3><p><span class="id-text">IDR, USD, MYR, SGD, dan AUD. Format otomatis sesuai standar tiap negara.</span><span class="en-text">IDR, USD, MYR, SGD, and AUD. Number format automatically follows each country's standard.</span></p></div>
+      <div class="feature-card"><div class="feature-icon">🕌</div><h3><span class="id-text">Mazhab Syafi'i</span><span class="en-text">Shafi'i Madhab</span></h3><p><span class="id-text">Kaidah Mazhab Syafi'i — dominan di Indonesia, Malaysia, dan Asia Tenggara.</span><span class="en-text">Based on Shafi'i Madhab rules — dominant in Indonesia, Malaysia, and Southeast Asia.</span></p></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><h3><span class="id-text">Privasi Terjamin</span><span class="en-text">Privacy Guaranteed</span></h3><p><span class="id-text">Semua perhitungan lokal di perangkat kamu. Tidak ada data yang dikirim ke server.</span><span class="en-text">All calculations are local on your device. No data is ever sent to our servers.</span></p></div>
     </div>
   </div>
 </section>
@@ -400,7 +440,7 @@
   <div style="max-width:600px;margin:0 auto;position:relative;z-index:1;">
     <div class="hadith-arabic">تَعَلَّمُوا الْفَرَائِضَ وَعَلِّمُوهَا<br>فَإِنَّهُ نِصْفُ الْعِلْمِ</div>
     <div class="hadith-divider"></div>
-    <p class="hadith-translation">"Pelajarilah ilmu faraidh dan ajarkanlah, karena sesungguhnya ia adalah separuh ilmu."</p>
+    <p class="hadith-translation id-text">"Pelajarilah ilmu faraidh dan ajarkanlah, karena sesungguhnya ia adalah separuh ilmu."</p>
     <p class="hadith-translation" style="font-size:13px;margin-bottom:14px;">"Learn the laws of inheritance and teach them, for it is half of all knowledge."</p>
     <p class="hadith-source">HR. Ibnu Majah & Ad-Daraquthni</p>
   </div>
@@ -409,81 +449,4 @@
 <!-- PRICING -->
 <section class="pricing" id="pricing">
   <div style="max-width:1100px;margin:0 auto;">
-    <div class="section-label" style="text-align:center;">Harga</div>
-    <h2 class="section-title" style="text-align:center;margin-bottom:12px;">Mulai gratis</h2>
-    <p class="section-sub" style="text-align:center;margin:0 auto 48px;">Upgrade ke Premium untuk fitur lengkap. Bayar sekali, tidak ada langganan.</p>
-    <div class="pricing-grid">
-      <div class="price-card">
-        <div class="price-tier">Gratis</div>
-        <div class="price-amount">Rp 0</div>
-        <div class="price-note">Selamanya gratis</div>
-        <ul class="price-features">
-          <li>Pasangan (Suami/Istri)</li>
-          <li>Anak Laki-laki & Perempuan</li>
-          <li>Ayah & Ibu</li>
-          <li>Visualisasi pie chart</li>
-          <li>5 mata uang</li>
-          <li class="locked">Cucu, Kakek/Nenek, Saudara</li>
-          <li class="locked">Ekspor PDF</li>
-        </ul>
-      </div>
-      <div class="price-card featured">
-        <div class="price-badge">PREMIUM</div>
-        <div class="price-tier">Premium</div>
-        <div class="price-amount">Rp 49.000</div>
-        <div class="price-note">Bayar sekali · Tidak ada langganan</div>
-        <ul class="price-features">
-          <li>Semua fitur gratis</li>
-          <li>Cucu, Kakek/Nenek, Saudara</li>
-          <li>Ekspor dokumen PDF</li>
-          <li>Bagikan via WhatsApp & Email</li>
-          <li>Semua update mendatang</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRIVACY -->
-<section id="privacy">
-  <div class="privacy-inner">
-    <h2>Privacy Policy</h2>
-    <p class="updated">Last updated: June 2026</p>
-    <div class="privacy-block"><h3>Data We Collect</h3><p>Faraidh: Kalkulator Waris does not collect any personal data. All inheritance calculations are performed locally on your device. No data is transmitted to our servers at any time.</p></div>
-    <div class="privacy-block"><h3>Calculations & Results</h3><p>All estate values, heir information, and calculation results you enter remain on your device only. We have no access to your data.</p></div>
-    <div class="privacy-block"><h3>In-App Purchases</h3><p>Premium purchases are handled entirely by Apple's App Store. We do not store or have access to your payment information.</p></div>
-    <div class="privacy-block"><h3>Analytics</h3><p>We do not use any third-party analytics or tracking tools in this app.</p></div>
-    <div class="privacy-block"><h3>Contact</h3><p>For privacy-related questions: <a href="mailto:guntarasaketi@gmail.com" style="color:var(--green-mid);">guntarasaketi@gmail.com</a></p></div>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <h3>Faraidh: Kalkulator Waris</h3>
-      <p>Islamic inheritance calculator for Muslim families worldwide. Built by Maybe Works Studio.</p>
-    </div>
-    <div class="footer-links">
-      <h4>App</h4>
-      <ul>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#privacy">Privacy Policy</a></li>
-      </ul>
-    </div>
-    <div class="footer-links">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="mailto:guntarasaketi@gmail.com">guntarasaketi@gmail.com</a></li>
-        <li><a href="#">Maybe Works Studio</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 Maybe Works Studio. All rights reserved.</span>
-    <span>Built with ♥ for Muslim families worldwide.</span>
-  </div>
-</footer>
-
-</body>
-</html>
+    <div class="section-label" style="text-align:center;"><span class="id-text">Harga</span><span class="en-text">Pri
