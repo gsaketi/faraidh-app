@@ -69,8 +69,8 @@
   }
   .phone-device {
     background: #111;
-    border-radius: 36px;
-    padding: 8px;
+    border-radius: 54px;
+    padding: 12px;
     box-shadow: 0 30px 70px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06);
     position: relative; z-index: 2;
   }
@@ -82,74 +82,74 @@
   .phone-device.front {
     transform: rotate(-4deg) translate(-10px, 0px);
   }
-  .phone-screen { border-radius: 29px; overflow: hidden; width: 170px; height: 360px; }
+  .phone-screen { border-radius: 43px; overflow: hidden; width: 255px; height: 540px; }
   .a-green { background: var(--app-bg); }
 
   /* App Header */
-  .ah { background: var(--app-green); padding: 10px 10px 8px; }
+  .ah { background: var(--app-green); padding: 15px 14px 12px; }
   .ah-back { font-size: 7.5px; color: rgba(255,255,255,0.8); margin-bottom: 3px; }
   .ah-title { font-size: 9.5px; font-weight: 700; color: white; text-align: center; margin: -12px 0 0; }
-  .ah-home { padding: 10px 10px 8px; }
-  .ah-home-title { font-size: 11px; font-weight: 700; color: white; }
-  .ah-home-sub { font-size: 7px; color: rgba(255,255,255,0.55); }
-  .ah-arabic { font-size: 7px; color: rgba(255,255,255,0.28); font-family: 'Amiri',serif; float: right; margin-top: -16px; }
+  .ah-home { padding: 15px 14px 12px; }
+  .ah-home-title { font-size: 16px; font-weight: 700; color: white; }
+  .ah-home-sub { font-size: 10px; color: rgba(255,255,255,0.55); }
+  .ah-arabic { font-size: 10px; color: rgba(255,255,255,0.28); font-family: 'Amiri',serif; float: right; margin-top: -16px; }
 
-  .ab { padding: 6px 7px 7px; } /* app body */
+  .ab { padding: 9px 10px 10px; } /* app body */
 
   /* Home screen content */
-  .input-card { background: white; border-radius: 7px; padding: 7px 9px; margin-bottom: 5px; border: 0.5px solid #e8d5b0; }
-  .input-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; border-bottom: 0.5px solid #f0ebe0; }
+  .input-card { background: white; border-radius: 10px; padding: 10px 13px; margin-bottom: 5px; border: 0.5px solid #e8d5b0; }
+  .input-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 0.5px solid #f0ebe0; }
   .input-row:last-child { border-bottom: none; }
-  .input-label { font-size: 7.5px; color: #777; }
-  .input-val { font-size: 7.5px; color: #111; font-family: monospace; }
-  .input-symbol { font-size: 7px; color: #aaa; }
-  .heir-card { background: white; border-radius: 7px; padding: 6px 9px; margin-bottom: 5px; border: 0.5px solid #e8d5b0; }
-  .heir-group-title { font-size: 6.5px; font-weight: 700; color: #aaa; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 5px; }
-  .heir-row { display: flex; justify-content: space-between; align-items: center; padding: 2.5px 0; border-bottom: 0.5px solid #f5f0e8; }
+  .input-label { font-size: 11px; color: #777; }
+  .input-val { font-size: 11px; color: #111; font-family: monospace; }
+  .input-symbol { font-size: 10px; color: #aaa; }
+  .heir-card { background: white; border-radius: 10px; padding: 9px 13px; margin-bottom: 5px; border: 0.5px solid #e8d5b0; }
+  .heir-group-title { font-size: 9.5px; font-weight: 700; color: #aaa; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 5px; }
+  .heir-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 0.5px solid #f5f0e8; }
   .heir-row:last-child { border-bottom: none; }
-  .heir-name { font-size: 7.5px; color: #333; }
+  .heir-name { font-size: 11px; color: #333; }
   .heir-counter { display: flex; align-items: center; gap: 3px; background: #f5f0e8; border-radius: 5px; padding: 1px 4px; }
-  .heir-btn { font-size: 7px; color: var(--app-green); font-weight: 700; }
-  .heir-num { font-size: 7px; color: #111; font-family: monospace; min-width: 8px; text-align: center; }
-  .calc-btn { background: var(--app-green); color: white; border-radius: 7px; padding: 7px; text-align: center; font-size: 8px; font-weight: 600; margin-top: 4px; }
+  .heir-btn { font-size: 10px; color: var(--app-green); font-weight: 700; }
+  .heir-num { font-size: 10px; color: #111; font-family: monospace; min-width: 8px; text-align: center; }
+  .calc-btn { background: var(--app-green); color: white; border-radius: 10px; padding: 10px; text-align: center; font-size: 12px; font-weight: 600; margin-top: 4px; }
 
   /* Result screen */
-  .hero-card { background: white; border-radius: 7px; padding: 7px 9px; margin-bottom: 5px; border: 0.5px solid #e8d5b0; }
-  .hero-label { font-size: 6.5px; color: #888; }
-  .hero-label-idr { float: right; background: #f5f5f5; font-size: 6px; padding: 1px 5px; border-radius: 3px; color: #666; border: 0.5px solid #ddd; }
-  .hero-amount { font-size: 13px; font-weight: 700; color: #111; font-family: monospace; margin: 2px 0 4px; letter-spacing: -0.3px; }
-  .hero-pill { display: inline-block; font-size: 6.5px; background: #f0ebe0; color: #666; padding: 1.5px 6px; border-radius: 6px; border: 0.5px solid #ddd; }
+  .hero-card { background: white; border-radius: 10px; padding: 10px 13px; margin-bottom: 5px; border: 0.5px solid #e8d5b0; }
+  .hero-label { font-size: 9.5px; color: #888; }
+  .hero-label-idr { float: right; background: #f5f5f5; font-size: 9px; padding: 1px 5px; border-radius: 3px; color: #666; border: 0.5px solid #ddd; }
+  .hero-amount { font-size: 19px; font-weight: 700; color: #111; font-family: monospace; margin: 3px 0 6px; letter-spacing: -0.3px; }
+  .hero-pill { display: inline-block; font-size: 9.5px; background: #f0ebe0; color: #666; padding: 1.5px 6px; border-radius: 6px; border: 0.5px solid #ddd; }
 
-  .chart-card { background: white; border-radius: 7px; padding: 7px 9px; margin-bottom: 5px; border: 0.5px solid #e8d5b0; }
-  .chart-title { font-size: 6.5px; color: #888; margin-bottom: 5px; }
-  .donut-wrap { position: relative; width: 70px; height: 70px; margin: 0 auto 5px; }
-  .donut-svg { width: 70px; height: 70px; transform: rotate(-90deg); }
+  .chart-card { background: white; border-radius: 10px; padding: 10px 13px; margin-bottom: 5px; border: 0.5px solid #e8d5b0; }
+  .chart-title { font-size: 9.5px; color: #888; margin-bottom: 5px; }
+  .donut-wrap { position: relative; width: 105px; height: 105px; margin: 0 auto 5px; }
+  .donut-svg { width: 105px; height: 105px; transform: rotate(-90deg); }
   .donut-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; }
-  .donut-num { font-size: 13px; font-weight: 700; color: #111; line-height: 1; }
-  .donut-sub { font-size: 5.5px; color: #888; }
+  .donut-num { font-size: 20px; font-weight: 700; color: #111; line-height: 1; }
+  .donut-sub { font-size: 8px; color: #888; }
   .chart-labels { display: flex; justify-content: space-between; padding: 0 2px; }
-  .cl-item { font-size: 6px; text-align: center; }
+  .cl-item { font-size: 9px; text-align: center; }
   .cl-name { color: #444; display: block; }
 
-  .shares-title { font-size: 6.5px; font-weight: 700; color: #999; letter-spacing: 0.8px; text-transform: uppercase; margin: 4px 2px 3px; }
-  .share-card { background: white; border-radius: 7px; padding: 5px 9px; border: 0.5px solid #e8d5b0; }
-  .srow { display: flex; align-items: center; padding: 3.5px 0; border-bottom: 0.5px solid #f0ebe0; }
+  .shares-title { font-size: 9.5px; font-weight: 700; color: #999; letter-spacing: 0.8px; text-transform: uppercase; margin: 4px 2px 3px; }
+  .share-card { background: white; border-radius: 10px; padding: 7px 13px; border: 0.5px solid #e8d5b0; }
+  .srow { display: flex; align-items: center; padding: 5px 0; border-bottom: 0.5px solid #f0ebe0; }
   .srow:last-child { border-bottom: none; }
-  .sdot { width: 5px; height: 5px; border-radius: 50%; margin-right: 5px; flex-shrink: 0; }
+  .sdot { width: 7px; height: 7px; border-radius: 50%; margin-right: 5px; flex-shrink: 0; }
   .sleft { flex: 1; }
-  .sname { font-size: 7.5px; font-weight: 500; color: #111; }
-  .sfrac { font-size: 6px; color: #999; }
+  .sname { font-size: 11px; font-weight: 500; color: #111; }
+  .sfrac { font-size: 9px; color: #999; }
   .sright { text-align: right; }
-  .samt { font-size: 7.5px; font-weight: 600; color: #111; font-family: monospace; }
-  .spct { font-size: 6px; color: #999; }
+  .samt { font-size: 11px; font-weight: 600; color: #111; font-family: monospace; }
+  .spct { font-size: 9px; color: #999; }
 
-  .app-bottom { display: flex; gap: 4px; padding: 5px 7px; border-top: 0.5px solid #e8d5b0; background: var(--app-bg); }
-  .abtn-o { flex: 1; padding: 5px; border-radius: 6px; text-align: center; font-size: 6.5px; font-weight: 500; background: white; border: 0.5px solid var(--app-green); color: var(--app-green); }
-  .abtn-f { flex: 1; padding: 5px; border-radius: 6px; text-align: center; font-size: 6.5px; font-weight: 500; background: var(--app-green); color: white; }
+  .app-bottom { display: flex; gap: 6px; padding: 8px 10px; border-top: 0.5px solid #e8d5b0; background: var(--app-bg); }
+  .abtn-o { flex: 1; padding: 7px; border-radius: 9px; text-align: center; font-size: 9.5px; font-weight: 500; background: white; border: 0.5px solid var(--app-green); color: var(--app-green); }
+  .abtn-f { flex: 1; padding: 7px; border-radius: 9px; text-align: center; font-size: 9.5px; font-weight: 500; background: var(--app-green); color: white; }
 
-  .app-tabs { display: flex; background: white; border-top: 0.5px solid #ddd; padding: 4px 0 5px; }
-  .atab { flex: 1; text-align: center; font-size: 6.5px; }
-  .atab-icon { font-size: 11px; display: block; margin-bottom: 1px; }
+  .app-tabs { display: flex; background: white; border-top: 0.5px solid #ddd; padding: 6px 0 7px; }
+  .atab { flex: 1; text-align: center; font-size: 9.5px; }
+  .atab-icon { font-size: 16px; display: block; margin-bottom: 1px; }
 
   /* FEATURES */
   .features { padding: 90px 5%; background: var(--cream); }
@@ -230,7 +230,7 @@
     <li><a href="#features">Features</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#privacy">Privacy</a></li>
-    <li><a href="mailto:hello@maybeworks.studio">Contact</a></li>
+    <li><a href="mailto:guntarasaketi@gmail.com">Contact</a></li>
   </ul>
   <a href="#" class="nav-cta">Download Free</a>
 </nav>
@@ -453,7 +453,7 @@
     <div class="privacy-block"><h3>Calculations & Results</h3><p>All estate values, heir information, and calculation results you enter remain on your device only. We have no access to your data.</p></div>
     <div class="privacy-block"><h3>In-App Purchases</h3><p>Premium purchases are handled entirely by Apple's App Store. We do not store or have access to your payment information.</p></div>
     <div class="privacy-block"><h3>Analytics</h3><p>We do not use any third-party analytics or tracking tools in this app.</p></div>
-    <div class="privacy-block"><h3>Contact</h3><p>For privacy-related questions: <a href="mailto:hello@maybeworks.studio" style="color:var(--green-mid);">hello@maybeworks.studio</a></p></div>
+    <div class="privacy-block"><h3>Contact</h3><p>For privacy-related questions: <a href="mailto:guntarasaketi@gmail.com" style="color:var(--green-mid);">guntarasaketi@gmail.com</a></p></div>
   </div>
 </section>
 
@@ -474,7 +474,7 @@
     <div class="footer-links">
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:hello@maybeworks.studio">hello@maybeworks.studio</a></li>
+        <li><a href="mailto:guntarasaketi@gmail.com">guntarasaketi@gmail.com</a></li>
         <li><a href="#">Maybe Works Studio</a></li>
       </ul>
     </div>
