@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faraidh: Kalkulator Waris — Islamic Inheritance Calculator</title>
+<meta name="description" content="Calculate Islamic inheritance (Faraidh) accurately based on Syariah law. Available on iOS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green-deep: #1A3D30; --green-mid: #2D5016; --gold: #C9A227;
+    --gold-light: #E8D5A3; --cream: #FDF8F0; --white: #FFFFFF;
+    --gray-light: #F5F5F0; --text-dark: #1A1A1A; --text-mid: #444;
+    --text-soft: #888; --radius: 12px; --app-green: #2D5016; --app-bg: #FDF6EC;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(26,61,48,0.96); backdrop-filter: blur(12px);
+    padding: 0 5%; display: flex; align-items: center; justify-content: space-between;
+    height: 60px; border-bottom: 1px solid rgba(201,162,39,0.2);
+  }
+  .nav-logo { font-family: 'Amiri', serif; font-size: 18px; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .nav-logo-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--green-deep); font-weight: 700; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-cta { background: var(--gold); color: var(--green-deep); padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; text-decoration: none; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--green-deep) 0%, #0d2218 100%);
+    display: flex; align-items: center;
+    padding: 100px 5% 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: 'الْفَرَائِضُ';
+    position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+    font-family: 'Amiri', serif; font-size: clamp(100px,16vw,220px);
+    color: rgba(201,162,39,0.05); line-height: 1; pointer-events: none; white-space: nowrap;
+  }
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .hero-eyebrow { display: inline-block; font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); background: rgba(201,162,39,0.12); padding: 5px 14px; border-radius: 20px; margin-bottom: 24px; }
+  .hero h1 { font-family: 'Amiri', serif; font-size: clamp(34px,4.5vw,56px); color: var(--white); line-height: 1.15; margin-bottom: 8px; }
+  .hero h1 span { color: var(--gold); }
+  .hero-subtitle { font-size: 15px; color: rgba(255,255,255,0.5); font-family: 'Amiri',serif; font-style: italic; margin-bottom: 20px; }
+  .hero p { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 32px; max-width: 420px; }
+  .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-appstore { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--text-dark); padding: 12px 22px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 14px; transition: transform 0.2s, box-shadow 0.2s; }
+  .btn-appstore:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .btn-appstore svg { width: 20px; height: 20px; }
+  .btn-learn { display: inline-flex; align-items: center; color: rgba(255,255,255,0.55); font-size: 14px; text-decoration: none; gap: 6px; transition: color 0.2s; padding: 12px 4px; }
+  .btn-learn:hover { color: var(--gold-light); }
+
+  /* TWO PHONES — compact layout per sketch */
+  .phones-wrap {
+    display: flex; justify-content: center; align-items: flex-end;
+    gap: 0; position: relative;
+  }
+  .phone-device {
+    background: #111;
+    border-radius: 36px;
+    padding: 8px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06);
+    position: relative; z-index: 2;
+  }
+  .phone-device.back {
+    z-index: 1;
+    transform: rotate(6deg) translate(20px, 10px);
+    opacity: 0.92;
+  }
+  .phone-device.front {
+    transform: rotate(-4deg) translate(-10px, 0px);
+  }
+  .phone-screen { border-radius: 29px; overflow: hidden; width: 170px; height: 360px; }
+  .a-green { background: var(--app-bg); }
+
+  /* App Header */
+  .ah { background: var(--app-green); padding: 10px 10px 8px; }
+  .ah-back { font-size: 7.5px; color: rgba(255,255,255,0.8); margin-bottom: 3px; }
+  .ah-title { font-size: 9.5px; font-weight: 700; color: white; text-align: center; margin: -12px 0 0; }
+  .ah-home { padding: 10px 10px 8px; }
+  .ah-home-title { font-size: 11px; font-weight: 700; color: white; }
+  .ah-home-sub { font-size: 7px; color: rgba(255,255,255,0.55); }
+  .ah-arabic { font-size: 7px; color: rgba(255,255,255,0.28); font-family: 'Amiri',serif; float: right; margin-top: -16px; }
+
+  .ab { padding: 6px 7px 7px; } /* app body */
+
+  /* Home screen content */
+  .input-card { background: white; border-radius: 7px; padding: 7px 9px; margin-bottom: 5px; border: 0.5px solid #e8d5b0; }
+  .input-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; border-bottom: 0.5px solid #f0ebe0; }
+  .input-row:last-child { border-bottom: none; }
+  .input-label { font-size: 7.5px; color: #777; }
+  .input-val { font-size: 7.5px; color: #111; font-family: monospace; }
+  .input-symbol { font-size: 7px; color: #aaa; }
+  .heir-card { background: white; border-radius: 7px; padding: 6px 9px; margin-bottom: 5px; border: 0.5px solid #e8d5b0; }
+  .heir-group-title { font-size: 6.5px; font-weight: 700; color: #aaa; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 5px; }
+  .heir-row { display: flex; justify-content: space-between; align-items: center; padding: 2.5px 0; border-bottom: 0.5px solid #f5f0e8; }
+  .heir-row:last-child { border-bottom: none; }
+  .heir-name { font-size: 7.5px; color: #333; }
+  .heir-counter { display: flex; align-items: center; gap: 3px; background: #f5f0e8; border-radius: 5px; padding: 1px 4px; }
+  .heir-btn { font-size: 7px; color: var(--app-green); font-weight: 700; }
+  .heir-num { font-size: 7px; color: #111; font-family: monospace; min-width: 8px; text-align: center; }
+  .calc-btn { background: var(--app-green); color: white; border-radius: 7px; padding: 7px; text-align: center; font-size: 8px; font-weight: 600; margin-top: 4px; }
+
+  /* Result screen */
+  .hero-card { background: white; border-radius: 7px; padding: 7px 9px; margin-bottom: 5px; border: 0.5px solid #e8d5b0; }
+  .hero-label { font-size: 6.5px; color: #888; }
+  .hero-label-idr { float: right; background: #f5f5f5; font-size: 6px; padding: 1px 5px; border-radius: 3px; color: #666; border: 0.5px solid #ddd; }
+  .hero-amount { font-size: 13px; font-weight: 700; color: #111; font-family: monospace; margin: 2px 0 4px; letter-spacing: -0.3px; }
+  .hero-pill { display: inline-block; font-size: 6.5px; background: #f0ebe0; color: #666; padding: 1.5px 6px; border-radius: 6px; border: 0.5px solid #ddd; }
+
+  .chart-card { background: white; border-radius: 7px; padding: 7px 9px; margin-bottom: 5px; border: 0.5px solid #e8d5b0; }
+  .chart-title { font-size: 6.5px; color: #888; margin-bottom: 5px; }
+  .donut-wrap { position: relative; width: 70px; height: 70px; margin: 0 auto 5px; }
+  .donut-svg { width: 70px; height: 70px; transform: rotate(-90deg); }
+  .donut-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; }
+  .donut-num { font-size: 13px; font-weight: 700; color: #111; line-height: 1; }
+  .donut-sub { font-size: 5.5px; color: #888; }
+  .chart-labels { display: flex; justify-content: space-between; padding: 0 2px; }
+  .cl-item { font-size: 6px; text-align: center; }
+  .cl-name { color: #444; display: block; }
+
+  .shares-title { font-size: 6.5px; font-weight: 700; color: #999; letter-spacing: 0.8px; text-transform: uppercase; margin: 4px 2px 3px; }
+  .share-card { background: white; border-radius: 7px; padding: 5px 9px; border: 0.5px solid #e8d5b0; }
+  .srow { display: flex; align-items: center; padding: 3.5px 0; border-bottom: 0.5px solid #f0ebe0; }
+  .srow:last-child { border-bottom: none; }
+  .sdot { width: 5px; height: 5px; border-radius: 50%; margin-right: 5px; flex-shrink: 0; }
+  .sleft { flex: 1; }
+  .sname { font-size: 7.5px; font-weight: 500; color: #111; }
+  .sfrac { font-size: 6px; color: #999; }
+  .sright { text-align: right; }
+  .samt { font-size: 7.5px; font-weight: 600; color: #111; font-family: monospace; }
+  .spct { font-size: 6px; color: #999; }
+
+  .app-bottom { display: flex; gap: 4px; padding: 5px 7px; border-top: 0.5px solid #e8d5b0; background: var(--app-bg); }
+  .abtn-o { flex: 1; padding: 5px; border-radius: 6px; text-align: center; font-size: 6.5px; font-weight: 500; background: white; border: 0.5px solid var(--app-green); color: var(--app-green); }
+  .abtn-f { flex: 1; padding: 5px; border-radius: 6px; text-align: center; font-size: 6.5px; font-weight: 500; background: var(--app-green); color: white; }
+
+  .app-tabs { display: flex; background: white; border-top: 0.5px solid #ddd; padding: 4px 0 5px; }
+  .atab { flex: 1; text-align: center; font-size: 6.5px; }
+  .atab-icon { font-size: 11px; display: block; margin-bottom: 1px; }
+
+  /* FEATURES */
+  .features { padding: 90px 5%; background: var(--cream); }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green-mid); margin-bottom: 12px; }
+  .section-title { font-family: 'Amiri',serif; font-size: clamp(26px,3.5vw,40px); color: var(--text-dark); line-height: 1.2; margin-bottom: 14px; }
+  .section-sub { font-size: 15px; color: var(--text-mid); max-width: 500px; line-height: 1.7; margin-bottom: 50px; }
+  .features-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .feature-card { background: var(--white); border-radius: var(--radius); padding: 28px 24px; border: 1px solid rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; }
+  .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+  .feature-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(45,80,22,0.08); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
+  .feature-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .feature-card p { font-size: 13.5px; color: var(--text-mid); line-height: 1.65; }
+  .feature-tag { display: inline-block; margin-top: 12px; font-size: 11px; font-weight: 500; background: rgba(201,162,39,0.12); color: #8B6914; padding: 3px 10px; border-radius: 8px; }
+
+  /* HADITH */
+  .hadith-section { background: var(--green-deep); padding: 70px 5%; text-align: center; position: relative; overflow: hidden; }
+  .hadith-section::before { content: '❝'; position: absolute; left: 5%; top: 20px; font-size: 120px; color: rgba(201,162,39,0.07); font-family: Georgia,serif; line-height: 1; }
+  .hadith-arabic { font-family: 'Amiri',serif; font-size: clamp(19px,3vw,30px); color: var(--gold-light); line-height: 2; margin-bottom: 22px; direction: rtl; }
+  .hadith-divider { width: 36px; height: 1px; background: var(--gold); opacity: 0.4; margin: 0 auto 20px; }
+  .hadith-translation { font-size: 15px; color: rgba(255,255,255,0.6); font-style: italic; max-width: 540px; margin: 0 auto 8px; line-height: 1.75; }
+  .hadith-source { font-size: 12px; color: rgba(201,162,39,0.7); font-weight: 500; }
+
+  /* PRICING */
+  .pricing { padding: 90px 5%; background: var(--white); text-align: center; }
+  .pricing-grid { max-width: 660px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; text-align: left; }
+  .price-card { border-radius: var(--radius); padding: 28px 24px; border: 1.5px solid rgba(0,0,0,0.08); position: relative; }
+  .price-card.featured { border-color: var(--gold); background: linear-gradient(145deg,#fffdf5,#fff); }
+  .price-badge { position: absolute; top: -11px; left: 24px; background: var(--gold); color: var(--green-deep); font-size: 10px; font-weight: 700; letter-spacing: 1px; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; }
+  .price-tier { font-size: 12px; font-weight: 500; color: var(--text-soft); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+  .price-amount { font-size: 32px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+  .price-note { font-size: 11px; color: var(--text-soft); margin-bottom: 20px; }
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .price-features li { font-size: 13px; color: var(--text-mid); display: flex; align-items: flex-start; gap: 7px; }
+  .price-features li::before { content: '✓'; color: var(--green-mid); font-weight: 700; flex-shrink: 0; }
+  .price-features li.locked::before { content: '🔒'; font-size: 10px; }
+  .price-features li.locked { color: var(--text-soft); }
+
+  /* PRIVACY */
+  #privacy { padding: 90px 5% 70px; background: var(--gray-light); scroll-margin-top: 60px; }
+  .privacy-inner { max-width: 700px; margin: 0 auto; }
+  .privacy-inner h2 { font-family: 'Amiri',serif; font-size: 34px; margin-bottom: 8px; }
+  .privacy-inner .updated { font-size: 12px; color: var(--text-soft); margin-bottom: 32px; }
+  .privacy-block { margin-bottom: 28px; }
+  .privacy-block h3 { font-size: 15px; font-weight: 600; margin-bottom: 7px; }
+  .privacy-block p { font-size: 14px; color: var(--text-mid); line-height: 1.75; }
+
+  /* FOOTER */
+  footer { background: var(--green-deep); padding: 56px 5% 36px; color: rgba(255,255,255,0.5); }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 36px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .footer-brand h3 { font-family: 'Amiri',serif; font-size: 20px; color: var(--gold-light); margin-bottom: 6px; }
+  .footer-brand p { font-size: 13px; max-width: 240px; line-height: 1.6; }
+  .footer-links h4 { color: rgba(255,255,255,0.8); font-size: 12px; margin-bottom: 12px; font-weight: 500; }
+  .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold-light); }
+  .footer-bottom { max-width: 1100px; margin: 24px auto 0; display: flex; justify-content: space-between; font-size: 11px; flex-wrap: wrap; gap: 8px; }
+
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .phones-wrap { order: -1; }
+    .hero p { margin: 0 auto 32px; }
+    .hero-buttons { justify-content: center; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .footer-inner { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">ف</div>
+    Faraidh
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#privacy">Privacy</a></li>
+    <li><a href="mailto:hello@maybeworks.studio">Contact</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Download Free</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Available on iOS · Free</div>
+      <h1>Faraidh:<br><span>Kalkulator Waris</span></h1>
+      <p class="hero-subtitle">حساب الميراث الإسلامي</p>
+      <p>Hitung pembagian waris Islam (Faraidh) secara akurat sesuai syariah. Untuk keluarga Muslim Indonesia dan seluruh dunia.</p>
+      <div class="hero-buttons">
+        <a href="#" class="btn-appstore">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Download on App Store
+        </a>
+        <a href="#features" class="btn-learn">Learn more →</a>
+      </div>
+    </div>
+
+    <!-- TWO PHONES side by side like sketch -->
+    <div class="phones-wrap">
+
+      <!-- BACK PHONE: Hasil Pembagian -->
+      <div class="phone-device back">
+        <div class="phone-screen a-green">
+          <div class="ah" style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:7px;color:rgba(255,255,255,0.75);">← Kembali</div>
+            <div style="font-size:8.5px;font-weight:700;color:white;">Hasil Pembagian</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.75);">↺</div>
+          </div>
+          <div class="ab">
+            <div class="hero-card">
+              <div class="hero-label">Harta Bersih <span class="hero-label-idr">IDR</span></div>
+              <div class="hero-amount">Rp 958.500.000</div>
+              <span class="hero-pill">3 ahli waris</span>
+            </div>
+            <div class="chart-card">
+              <div class="chart-title">Proporsi Pembagian</div>
+              <div class="donut-wrap">
+                <svg class="donut-svg" viewBox="0 0 70 70">
+                  <circle cx="35" cy="35" r="24" fill="none" stroke="#e8e8e8" stroke-width="12"/>
+                  <circle cx="35" cy="35" r="24" fill="none" stroke="#22C55E" stroke-width="12" stroke-dasharray="88.0 150.8" stroke-dashoffset="0"/>
+                  <circle cx="35" cy="35" r="24" fill="none" stroke="#F59E0B" stroke-width="12" stroke-dasharray="44.0 194.8" stroke-dashoffset="-88.0"/>
+                  <circle cx="35" cy="35" r="24" fill="none" stroke="#6366F1" stroke-width="12" stroke-dasharray="18.8 220.0" stroke-dashoffset="-132.0"/>
+                </svg>
+                <div class="donut-center">
+                  <div class="donut-num">3</div>
+                  <div class="donut-sub">ahli waris</div>
+                </div>
+              </div>
+              <div class="chart-labels">
+                <div class="cl-item"><span class="cl-name">Anak P.</span><span style="color:#F59E0B;font-size:6.5px;font-weight:700;">29.2%</span></div>
+                <div class="cl-item"><span class="cl-name">Istri</span><span style="color:#6366F1;font-size:6.5px;font-weight:700;">12.5%</span></div>
+                <div class="cl-item"><span class="cl-name">Anak L.</span><span style="color:#22C55E;font-size:6.5px;font-weight:700;">58.3%</span></div>
+              </div>
+            </div>
+            <div class="shares-title">PEMBAGIAN</div>
+            <div class="share-card">
+              <div class="srow">
+                <div class="sdot" style="background:#6366F1;"></div>
+                <div class="sleft"><div class="sname">Istri</div><div class="sfrac">1/8</div></div>
+                <div class="sright"><div class="samt">Rp 119.812.500</div><div class="spct">12.5%</div></div>
+              </div>
+              <div class="srow">
+                <div class="sdot" style="background:#22C55E;"></div>
+                <div class="sleft"><div class="sname">Anak Laki-laki</div><div class="sfrac">Sisa / Asabah</div></div>
+                <div class="sright"><div class="samt">Rp 559.125.000</div><div class="spct">58.3%</div></div>
+              </div>
+              <div class="srow">
+                <div class="sdot" style="background:#F59E0B;"></div>
+                <div class="sleft"><div class="sname">Anak Perempuan</div><div class="sfrac">Sisa / Asabah</div></div>
+                <div class="sright"><div class="samt">Rp 279.562.500</div><div class="spct">29.2%</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="app-bottom">
+            <div class="abtn-o">📄 Ekspor PDF</div>
+            <div class="abtn-f">⊕ Hitung Baru</div>
+          </div>
+          <div class="app-tabs">
+            <div class="atab" style="color:var(--app-green);"><span class="atab-icon">🏠</span>Beranda</div>
+            <div class="atab" style="color:#aaa;"><span class="atab-icon">⚙️</span>Pengaturan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FRONT PHONE: Home/Input screen -->
+      <div class="phone-device front">
+        <div class="phone-screen a-green">
+          <div class="ah ah-home">
+            <div class="ah-home-title">Faraidh: Kalkulator Waris</div>
+            <div class="ah-home-sub">Hitung Waris Sesuai Syariah Islam</div>
+            <div class="ah-arabic">حساب الميراث</div>
+          </div>
+          <div class="ab">
+            <div style="font-size:6.5px;font-weight:700;color:#aaa;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">HARTA WARISAN</div>
+            <div class="input-card">
+              <div class="input-row">
+                <span class="input-label">Total Harta</span>
+                <span><span class="input-symbol">Rp</span> <span class="input-val">958.500.000</span></span>
+              </div>
+              <div class="input-row">
+                <span class="input-label">Hutang</span>
+                <span class="input-symbol">Rp</span>
+              </div>
+              <div class="input-row">
+                <span class="input-label">Biaya Jenazah</span>
+                <span class="input-symbol">Rp</span>
+              </div>
+              <div class="input-row">
+                <span class="input-label">Wasiat</span>
+                <span class="input-symbol">Rp</span>
+              </div>
+            </div>
+            <div style="font-size:6.5px;font-weight:700;color:#aaa;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;">AHLI WARIS</div>
+            <div class="heir-card">
+              <div class="heir-group-title">PASANGAN</div>
+              <div class="heir-row">
+                <span class="heir-name">Istri</span>
+                <div class="heir-counter"><span class="heir-btn">−</span><span class="heir-num">1</span><span class="heir-btn">+</span></div>
+              </div>
+            </div>
+            <div class="heir-card">
+              <div class="heir-group-title">ANAK</div>
+              <div class="heir-row">
+                <span class="heir-name">Anak Laki-laki</span>
+                <div class="heir-counter"><span class="heir-btn">−</span><span class="heir-num">1</span><span class="heir-btn">+</span></div>
+              </div>
+              <div class="heir-row">
+                <span class="heir-name">Anak Perempuan</span>
+                <div class="heir-counter"><span class="heir-btn">−</span><span class="heir-num">1</span><span class="heir-btn">+</span></div>
+              </div>
+            </div>
+            <div class="calc-btn">⚖ Hitung Waris</div>
+          </div>
+          <div class="app-tabs">
+            <div class="atab" style="color:var(--app-green);"><span class="atab-icon">🏠</span>Beranda</div>
+            <div class="atab" style="color:#aaa;"><span class="atab-icon">⚙️</span>Pengaturan</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-label">Fitur Utama</div>
+    <h2 class="section-title">Semua yang kamu butuhkan<br>untuk hitung waris</h2>
+    <p class="section-sub">Dirancang untuk keluarga Muslim Indonesia dan global. Akurat, transparan, mudah dipahami.</p>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">⚖️</div><h3>Kalkulasi Faraidh Lengkap</h3><p>17 jenis ahli waris, Awl, Raad, dan Mahjub — dihitung otomatis sesuai kaidah fiqih.</p></div>
+      <div class="feature-card"><div class="feature-icon">📊</div><h3>Pie Chart Interaktif</h3><p>Proporsi pembagian divisualisasikan dalam pie chart dengan label callout langsung di tiap irisan.</p></div>
+      <div class="feature-card"><div class="feature-icon">📄</div><h3>Ekspor Dokumen PDF</h3><p>Generate dokumen PDF profesional lengkap dengan harta, biaya jenazah, dan pembagian.</p><span class="feature-tag">Premium</span></div>
+      <div class="feature-card"><div class="feature-icon">🌍</div><h3>5 Mata Uang</h3><p>IDR, USD, MYR, SGD, dan AUD. Format otomatis sesuai standar tiap negara.</p></div>
+      <div class="feature-card"><div class="feature-icon">🕌</div><h3>Mazhab Syafi'i</h3><p>Kaidah Mazhab Syafi'i — dominan di Indonesia, Malaysia, dan Asia Tenggara.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><h3>Privasi Terjamin</h3><p>Semua perhitungan lokal di perangkat kamu. Tidak ada data yang dikirim ke server.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HADITH -->
+<section class="hadith-section">
+  <div style="max-width:600px;margin:0 auto;position:relative;z-index:1;">
+    <div class="hadith-arabic">تَعَلَّمُوا الْفَرَائِضَ وَعَلِّمُوهَا<br>فَإِنَّهُ نِصْفُ الْعِلْمِ</div>
+    <div class="hadith-divider"></div>
+    <p class="hadith-translation">"Pelajarilah ilmu faraidh dan ajarkanlah, karena sesungguhnya ia adalah separuh ilmu."</p>
+    <p class="hadith-translation" style="font-size:13px;margin-bottom:14px;">"Learn the laws of inheritance and teach them, for it is half of all knowledge."</p>
+    <p class="hadith-source">HR. Ibnu Majah & Ad-Daraquthni</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-label" style="text-align:center;">Harga</div>
+    <h2 class="section-title" style="text-align:center;margin-bottom:12px;">Mulai gratis</h2>
+    <p class="section-sub" style="text-align:center;margin:0 auto 48px;">Upgrade ke Premium untuk fitur lengkap. Bayar sekali, tidak ada langganan.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Gratis</div>
+        <div class="price-amount">Rp 0</div>
+        <div class="price-note">Selamanya gratis</div>
+        <ul class="price-features">
+          <li>Pasangan (Suami/Istri)</li>
+          <li>Anak Laki-laki & Perempuan</li>
+          <li>Ayah & Ibu</li>
+          <li>Visualisasi pie chart</li>
+          <li>5 mata uang</li>
+          <li class="locked">Cucu, Kakek/Nenek, Saudara</li>
+          <li class="locked">Ekspor PDF</li>
+        </ul>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">PREMIUM</div>
+        <div class="price-tier">Premium</div>
+        <div class="price-amount">Rp 49.000</div>
+        <div class="price-note">Bayar sekali · Tidak ada langganan</div>
+        <ul class="price-features">
+          <li>Semua fitur gratis</li>
+          <li>Cucu, Kakek/Nenek, Saudara</li>
+          <li>Ekspor dokumen PDF</li>
+          <li>Bagikan via WhatsApp & Email</li>
+          <li>Semua update mendatang</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section id="privacy">
+  <div class="privacy-inner">
+    <h2>Privacy Policy</h2>
+    <p class="updated">Last updated: June 2026</p>
+    <div class="privacy-block"><h3>Data We Collect</h3><p>Faraidh: Kalkulator Waris does not collect any personal data. All inheritance calculations are performed locally on your device. No data is transmitted to our servers at any time.</p></div>
+    <div class="privacy-block"><h3>Calculations & Results</h3><p>All estate values, heir information, and calculation results you enter remain on your device only. We have no access to your data.</p></div>
+    <div class="privacy-block"><h3>In-App Purchases</h3><p>Premium purchases are handled entirely by Apple's App Store. We do not store or have access to your payment information.</p></div>
+    <div class="privacy-block"><h3>Analytics</h3><p>We do not use any third-party analytics or tracking tools in this app.</p></div>
+    <div class="privacy-block"><h3>Contact</h3><p>For privacy-related questions: <a href="mailto:hello@maybeworks.studio" style="color:var(--green-mid);">hello@maybeworks.studio</a></p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>Faraidh: Kalkulator Waris</h3>
+      <p>Islamic inheritance calculator for Muslim families worldwide. Built by Maybe Works Studio.</p>
+    </div>
+    <div class="footer-links">
+      <h4>App</h4>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#privacy">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:hello@maybeworks.studio">hello@maybeworks.studio</a></li>
+        <li><a href="#">Maybe Works Studio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Maybe Works Studio. All rights reserved.</span>
+    <span>Built with ♥ for Muslim families worldwide.</span>
+  </div>
+</footer>
+
+</body>
+</html>
